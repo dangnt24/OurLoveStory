@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Our Love Story ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  overflow-x:hidden;
+  min-height:100vh;
+  color:white;
+
+  background:
+    radial-gradient(circle at top,#ffb6c1 0%,#ff8fab 35%,#ff5d8f 100%);
+}
+
+/* BACKGROUND */
+
+.bg-blur{
+  position:fixed;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  filter:blur(120px);
+  z-index:0;
+  opacity:0.5;
+}
+
+.bg1{
+  top:-200px;
+  left:-100px;
+  background:#ffffff;
+}
+
+.bg2{
+  bottom:-250px;
+  right:-100px;
+  background:#ffd6e0;
+}
+
+/* ROMANTIC OVERLAY */
+
+.romantic-overlay{
+
+  position:fixed;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.15),
+      transparent 70%
+    );
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:2.5s ease;
+
+  z-index:1;
+}
+
+.romantic-overlay.show{
+  opacity:1;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:50px 20px;
+  position:relative;
+  z-index:2;
+}
+
+.glass-card{
+  width:100%;
+  max-width:950px;
+
+  background:rgba(255,255,255,0.12);
+
+  backdrop-filter:blur(20px);
+
+  border:1px solid rgba(255,255,255,0.2);
+
+  border-radius:35px;
+
+  padding:40px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  box-shadow:0 15px 50px rgba(0,0,0,0.25);
+
+  transition:transform 0.2s ease;
+
+  transform-style:preserve-3d;
+
+  will-change:transform;
+}
+
+.glass-card.opened{
+  animation:softGlow 4s ease infinite;
+}
+
+/* TITLE */
+
+.top-text{
+  text-align:center;
+  margin-bottom:30px;
+  animation:floatText 3s infinite;
+}
+
+.top-text h1{
+  font-size:55px;
+  font-weight:700;
+}
+
+.top-text p{
+  margin-top:10px;
+  font-size:18px;
+  opacity:0.9;
+}
+
+/* ENVELOPE */
+
+.letter-wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top:30px;
+}
+
+.open-hint{
+  margin-bottom:35px;
+
+  font-size:22px;
+  font-weight:600;
+
+  color:white;
+
+  animation:bounce 2s infinite;
+
+  text-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+  text-align:center;
+
+  transition:1s;
+}
+
+.letter-container{
+  perspective:2500px;
+}
+
+.envelope{
+  position:relative;
+
+  width:340px;
+  height:230px;
+
+  cursor:pointer;
+
+  transform-style:preserve-3d;
+
+  transition:1s;
+
+  will-change:transform;
+
+  transform:translateZ(0);
+}
+
+/* BODY */
+
+.envelope-body{
+
+  position:absolute;
+  inset:0;
+
+  border-radius:22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ff77a8,
+      #ff3f7b
+    );
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.25),
+    inset 0 -10px 20px rgba(255,255,255,0.15);
+
+  overflow:hidden;
+}
+
+.envelope-body::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:10%;
+  left:-40%;
+
+  width:80%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      to right,
+      rgba(255,255,255,0.25),
+      transparent
+    );
+
+  transform:skewX(-25deg);
+}
+
+/* PAPER */
+
+.paper{
+
+  position:absolute;
+
+  width:88%;
+  height:88%;
+
+  left:6%;
+  bottom:12px;
+
+  background:white;
+
+  border-radius:18px;
+
+  z-index:2;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 15px 30px rgba(0,0,0,0.18);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  transform:translateY(0);
+
+  will-change:transform;
+
+  transition:
+    transform 2.2s cubic-bezier(.19,1,.22,1);
+}
+
+.envelope.open .paper{
+
+  transform:
+    translateY(-145px)
+    scale(1.02);
+
+  z-index:20;
+}
+
+.paper-content{
+  padding:30px;
+  text-align:center;
+}
+
+.paper h2{
+  font-size:34px;
+  margin-bottom:15px;
+  color:#ff4f81;
+}
+
+.paper p{
+  color:#666;
+  font-size:18px;
+  line-height:1.8;
+}
+
+/* FLAP */
+
+.flap{
+
+  position:absolute;
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  transform-origin:top center;
+
+  clip-path:polygon(
+    0 0,
+    50% 62%,
+    100% 0
+  );
+
+  background:
+    linear-gradient(
+      145deg,
+      #ff9fc0,
+      #ff4f81
+    );
+
+  z-index:10;
+
+  backface-visibility:hidden;
+
+  transform-style:preserve-3d;
+
+  will-change:transform;
+
+  transition:
+    transform 1.8s cubic-bezier(.22,1,.36,1);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.15);
+}
+
+.envelope.open .flap{
+  transform:rotateX(-180deg);
+}
+
+.envelope.open{
+  box-shadow:
+    0 0 40px rgba(255,255,255,0.25);
+}
+
+/* SHADOW */
+
+.envelope::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:80%;
+  height:30px;
+
+  background:rgba(0,0,0,0.2);
+
+  left:10%;
+  bottom:-20px;
+
+  border-radius:50%;
+
+  filter:blur(15px);
+
+  transition:1.5s;
+}
+
+.envelope.open::after{
+
+  transform:scale(0.7);
+
+  opacity:0.5;
+}
+
+/* CONTENT */
+
+.content{
+
+  opacity:0;
+
+  visibility:hidden;
+
+  margin-top:320px;
+
+  transform:translateY(40px);
+
+  transition:
+    opacity 2s ease,
+    transform 2s ease;
+
+  will-change:transform,opacity;
+}
+
+.content.show{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+
+/* TIMER */
+
+.timer{
+  text-align:center;
+  font-size:24px;
+  font-weight:600;
+  margin-bottom:30px;
+}
+
+/* SLIDESHOW */
+
+.slideshow{
+  width:100%;
+  height:500px;
+
+  border-radius:30px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  opacity:0;
+
+  transform:scale(1.2);
+
+  transition:
+    opacity 3s ease,
+    transform 10s ease;
+
+  filter:
+    brightness(0.75)
+    saturate(1.15);
+}
+
+.slide.active{
+  opacity:1;
+  z-index:2;
+
+  animation:slowZoom 10s ease forwards;
+}
+
+.slide.prev{
+  opacity:0;
+  transform:scale(1.05);
+  z-index:1;
+}
+
+/* OVERLAY */
+
+.cinematic-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,0.45),
+      transparent 35%,
+      transparent 65%,
+      rgba(0,0,0,0.35)
+    );
+
+  z-index:5;
+  pointer-events:none;
+}
+
+/* LOVE MESSAGE */
+
+.love-message{
+  margin-top:40px;
+  text-align:center;
+  line-height:2.2;
+  font-size:22px;
+  font-weight:300;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+#typingText{
+  min-height:220px;
+
+  white-space:pre-line;
+
+  display:block;
+
+  width:100%;
+
+  max-width:700px;
+
+  margin:auto;
+
+  padding-right:4px;
+
+  word-break:break-word;
+
+  overflow-wrap:break-word;
+}
+
+.signature{
+  margin-top:20px;
+  font-size:28px;
+  font-weight:600;
+
+  opacity:0;
+
+  transform:translateY(20px);
+
+  transition:2s;
+}
+
+.signature.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MUSIC */
+
+.music-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+
+  width:60px;
+  height:60px;
+
+  border-radius:50%;
+  border:none;
+
+  background:rgba(255,255,255,0.2);
+
+  backdrop-filter:blur(10px);
+
+  color:white;
+
+  font-size:25px;
+
+  cursor:pointer;
+
+  z-index:999;
+}
+
+/* HEART */
+
+.heart{
+  position:fixed;
+  pointer-events:none;
+  color:white;
+  opacity:0.8;
+  z-index:13;
+
+  animation:floatUp linear forwards;
+}
+
+/* HIDE */
+
+.hide-hint{
+  opacity:0;
+  transform:translateY(-10px);
+}
+
+/* ANIMATION */
+
+@keyframes floatUp{
+
+  from{
+    transform:translateY(0) scale(0.5);
+    opacity:0;
+  }
+
+  to{
+    transform:translateY(-110vh) scale(1.5);
+    opacity:1;
+  }
+}
+
+@keyframes floatText{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-8px);
+  }
+}
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-10px);
+  }
+}
+
+@keyframes softGlow{
+
+  0%,100%{
+    box-shadow:
+      0 15px 50px rgba(0,0,0,0.25);
+  }
+
+  50%{
+    box-shadow:
+      0 20px 70px rgba(255,255,255,0.15);
+  }
+}
+
+@keyframes slowZoom{
+
+  from{
+    transform:scale(1);
+  }
+
+  to{
+    transform:scale(1.08);
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .glass-card{
+    padding:25px;
+  }
+
+  .top-text h1{
+    font-size:38px;
+  }
+
+  .timer{
+    font-size:18px;
+  }
+
+  .slideshow{
+    height:320px;
+  }
+
+  .love-message{
+    font-size:18px;
+  }
+
+  #typingText{
+    min-height:260px;
+  }
+
+  .envelope{
+    width:300px;
+    height:200px;
+  }
+
+  .content{
+    margin-top:280px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-blur bg1"></div>
+<div class="bg-blur bg2"></div>
+
+<div class="romantic-overlay"></div>
+
+<!-- MUSIC -->
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">
+  🎵
+</button>
+
+<section class="hero">
+
+  <div class="glass-card" id="parallaxCard">
+
+    <div class="top-text">
+      <h1>Our Love Story ❤️</h1>
+      <p>365 ngày bên nhau ✨</p>
+    </div>
+
+    <!-- ENVELOPE -->
+
+    <div class="letter-wrapper">
+
+      <div class="open-hint">
+        💌 Bấm để mở thư tình nhaaa
+      </div>
+
+      <div class="letter-container">
+
+        <div class="envelope" id="envelope" onclick="openLetter()">
+
+          <div class="envelope-body"></div>
+
+          <div class="paper">
+
+            <div class="paper-content">
+
+              <h2>Gửi em ❤️</h2>
+
+              <p>
+                Cảm ơn em vì đã đến bên anh 🥺
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="flap"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="content" id="content">
+
+      <div class="timer" id="timer"></div>
+
+      <!-- SLIDESHOW -->
+
+      <div class="slideshow">
+
+        <img class="slide active" src="image1.jpg">
+        <img class="slide" src="image2.jpg">
+        <img class="slide" src="image3.jpg">
+        <img class="slide" src="image4.jpg">
+        <img class="slide" src="image5.jpg">
+        <img class="slide" src="image6.jpg">
+        <img class="slide" src="image7.jpg">
+        <img class="slide" src="image8.jpg">
+        <img class="slide" src="image9.jpg">
+        <img class="slide" src="image10.jpg">
+        <img class="slide" src="image11.jpg">
+
+        <div class="cinematic-overlay"></div>
+
+      </div>
+
+      <!-- MESSAGE -->
+
+      <div class="love-message">
+
+        <div id="typingText"></div>
+
+        <div class="signature" id="signature">
+          Anh yêu em ❤️
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+/* OPEN LETTER */
+
+function openLetter(){
+
+  const envelope =
+    document.getElementById("envelope");
+
+  if(envelope.classList.contains("open")) return;
+
+  const card =
+    document.getElementById("parallaxCard");
+
+  document
+    .querySelector(".open-hint")
+    .classList.add("hide-hint");
+
+  card.classList.add("opened");
+
+  document
+    .querySelector(".romantic-overlay")
+    .classList.add("show");
+
+  document
+    .getElementById("bgMusic")
+    .play();
+
+  // mở nắp thư
+  setTimeout(()=>{
+
+    envelope.classList.add("open");
+
+  },300);
+
+  // hiện content
+  setTimeout(()=>{
+
+    document
+      .getElementById("content")
+      .classList.add("show");
+
+  },2800);
+
+  // scroll nhẹ
+  setTimeout(()=>{
+
+    document
+      .getElementById("content")
+      .scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+  },3800);
+
+  // bắt đầu typing
+  setTimeout(()=>{
+
+    typeWriter();
+
+  },4700);
+}
+
+/* MUSIC */
+
+function toggleMusic(){
+
+  const music =
+    document.getElementById("bgMusic");
+
+  if(music.paused){
+
+    music.play();
+
+  }else{
+
+    music.pause();
+  }
+}
+
+/* LOVE DATE */
+
+const loveDate =
+  new Date("2025-05-18T00:00:00");
+
+function updateTimer(){
+
+  const now = new Date();
+
+  const diff = now - loveDate;
+
+  const days =
+    Math.floor(diff / (1000*60*60*24));
+
+  const hours =
+    Math.floor((diff / (1000*60*60)) % 24);
+
+  const minutes =
+    Math.floor((diff / (1000*60)) % 60);
+
+  const seconds =
+    Math.floor((diff / 1000) % 60);
+
+  document.getElementById("timer").innerHTML =
+    `Đã bên nhau ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây ❤️`;
+}
+
+setInterval(updateTimer,1000);
+
+updateTimer();
+
+/* SLIDESHOW */
+
+const slides =
+  document.querySelectorAll(".slide");
+
+let current = 0;
+
+function nextSlide(){
+
+  slides[current]
+    .classList.remove("active");
+
+  slides[current]
+    .classList.add("prev");
+
+  const old = current;
+
+  current =
+    (current + 1) % slides.length;
+
+  slides[current]
+    .classList.add("active");
+
+  setTimeout(()=>{
+
+    slides[old]
+      .classList.remove("prev");
+
+  },3000);
+}
+
+setInterval(nextSlide,8000);
+
+/* TYPING */
+
+const message = `
+Cảm ơn em vì đã đến bên anh ❤️
+
+Một năm vừa qua là khoảng thời gian tuyệt vời nhất đối với anh.
+
+Cảm ơn em vì đã luôn ở đây,
+cùng anh trải qua mọi niềm vui và cả những lúc mệt mỏi nhất.
+
+Anh mong rằng sau này tụi mình vẫn sẽ nắm tay nhau đi tiếp thật lâu nữa 🫶
+`;
+
+const typingText =
+  document.getElementById("typingText");
+
+let index = 0;
+
+function typeWriter(){
+
+  if(index < message.length){
+
+    typingText.innerHTML +=
+      message.charAt(index);
+
+    index++;
+
+    const speed =
+      message.charAt(index) === "\n"
+        ? 350
+        : 75;
+
+    setTimeout(typeWriter,speed);
+
+  }else{
+
+    document
+      .getElementById("signature")
+      .classList.add("show");
+  }
+}
+
+/* HEART EFFECT */
+
+function createHeart(){
+
+  const heart =
+    document.createElement("div");
+
+  heart.classList.add("heart");
+
+  heart.innerHTML = "❤";
+
+  heart.style.left =
+    Math.random() * 100 + "vw";
+
+  heart.style.fontSize =
+    (Math.random() * 20 + 10) + "px";
+
+  heart.style.animationDuration =
+    (Math.random() * 3 + 4) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{
+
+    heart.remove();
+
+  },7000);
+}
+
+setInterval(createHeart,350);
+
+/* PARALLAX */
+
+if(window.innerWidth > 768){
+
+  document.addEventListener("mousemove",(e)=>{
+
+    const card =
+      document.getElementById("parallaxCard");
+
+    const x =
+      (window.innerWidth / 2 - e.pageX) / 45;
+
+    const y =
+      (window.innerHeight / 2 - e.pageY) / 45;
+
+    card.style.transform =
+      `rotateY(${-x}deg) rotateX(${y}deg)`;
+
+  });
+}
+
+</script>
+
+</body>
+</html>
